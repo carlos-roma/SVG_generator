@@ -1,48 +1,51 @@
 const fs = require('fs');
 const inquirer = require("inquirer");
-const { Circle, Square, Triangle } = require("../Challenge 10/lib/shapes");
+const { Circle, Square, Triangle } = require("./lib/shapes");
 
 // validating input
 function validateColor(input) {
-  const colorKeywords = ['blue', 'green', 'yellow', 'red', 'orange', 'black', 'brown', 'gold', 'aqua'];
+  const colorKeywords = ['blue', 'green', 'yellow', 'red', 'orange', 'black', 'brown', 'gold', 'aqua','white'];
   if (colorKeywords.includes(input.toLowerCase())) {
     return true;
   } else {
-    return 'please enter a valid color keyword or a hexadecimal number';
+    return 'Please enter a valid color keyword or a hexadecimal number';
   }
-};
+}
 
 // prompts the user for input
 const shapeInstr = async () => {
-  const UserInput = await inquirer.prompt([
+  const userInput = await inquirer.prompt([
     {
       type: 'input',
       name: 'text',
-      message: 'welcome to svg logo generator, please select up to three characters for your logo',
-      validate: (input) => input.length > 0 && input.length <= 3,
+      message: 'Welcome to SVG logo generator, please select up to three characters for your logo',
+      validate: (input) => {
+        return input.length > 0 && input.length <= 3 ? true : 'Please enter between 1 to 3 characters';
+      },
     },
     {
       type: 'input',
       name: 'textColor',
-      message: 'choose text color',
+      message: 'Choose text color',
+      validate: validateColor,
     },
     {
       type: 'list',
       name: 'shape',
-      message: 'choose a shape:',
+      message: 'Choose a shape:',
       choices: ['Circle', 'Triangle', 'Square'],
     },
     {
       type: 'input',
       name: 'shapeColor',
-      message: 'enter shape color (keyword or hex):',
+      message: 'Enter shape color (keyword or hex):',
       validate: validateColor,
     },
   ]);
-  return UserInput;
+  return userInput;
 };
 
-// creates the svg file
+// creates the SVG file
 function createSVG({ text, textColor, shape, shapeColor }) {
   let selectedShape;
   switch (shape) {
@@ -57,7 +60,7 @@ function createSVG({ text, textColor, shape, shapeColor }) {
       break;
   }
 
-  // set shape color and generate svg content
+  // set shape color and generate SVG content
   selectedShape.setColor(shapeColor);
   const svgContent = `
     <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
@@ -66,10 +69,10 @@ function createSVG({ text, textColor, shape, shapeColor }) {
     </svg>
   `;
 
-  // write svg content to file
+  // write SVG content to file
   fs.writeFileSync('logo.svg', svgContent);
-  console.log('generated logo.svg');
-};
+  console.log('Generated logo.svg');
+}
 
 // main function to run the app
 const main = async () => {
