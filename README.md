@@ -17,7 +17,12 @@
   Clone the application, download the required packages and run index.js on the cli.
 
   ## Screenshot
-  
+  Tests
+  ![Screenshot (299)](https://github.com/carlos-roma/SVG_generator/assets/68045584/16c914ea-3fa0-4943-b6a7-fa3e2269a14f)
+
+SVG Image
+![Screenshot (298)](https://github.com/carlos-roma/SVG_generator/assets/68045584/97355f70-724b-463d-aabe-0c15507d4b2a)
+
   ## How to Use This Application
   Select shape and color, then select up to 3 characters and their color.
   
